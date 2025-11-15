@@ -9,7 +9,7 @@ use <bearing.scad>
 use <polyholes.scad>
 
 rod_distance = 45; // Distance between vertical rods
-tr_hole = 13.25; // Diameter of hole for threaded rod (mm). For 22mm flange, this is 10.5mm
+tr_hole = 13.2; // Diameter of hole for threaded rod (mm). For 22mm flange, this is 10.5mm
 tr_nut_distance = 19; // Distance between anchors of threaded rod (mm). For 22mm flange, this is 16mm
 
 module x_end_base() {
@@ -37,7 +37,9 @@ module reinforcement_selective_infill() {
 }
 
 module x_end_holes() {
+  
   vertical_bearing_holes();
+
   // Belt hole
   translate(v=[-1, 0, 0]) {
     // Stress relief
@@ -59,10 +61,11 @@ module x_end_holes() {
   // Top pushfit rod
   translate(v=[-15, -41.5, rod_distance + 6]) rotate(a=[-90, 0, 0]) pushfit_rod(7.8, 50);
 
-  // TR Nut trap
-  // Hole for the nut
+  // Hole for the lead screw
   translate(v=[0, -17, -1]) cylinder(h=14.51, r=tr_hole/2, $fn=60);
   translate(v=[0, -17, -0.1]) cylinder(h=1, r1=7.2, r2=6.7, $fn=60);
+
+  // --- TR Nut trap ---
 
   // Screw holes for TR nut
   translate(v=[0, -17, 0]) rotate([0, 0, -135]) translate([0, tr_nut_distance/2, -4]) cylinder(h=19, r=1.65, $fn=50);
